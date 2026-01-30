@@ -1,0 +1,8 @@
+{
+  "name": "My Stash - Pop Art Wardrobe",
+  "description": "A vibrant, pop-art inspired wardrobe manager and outfit builder with background removal and smart styling.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
