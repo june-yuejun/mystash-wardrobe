@@ -68,7 +68,7 @@ const Scanner: React.FC = () => {
 
       const textPart = {
         text: `Analyze this image. 
-        1. Identify the clothing item. Provide its name, category (T-Shirts, Jeans, Jackets, Dresses, or Shoes), colorway, and 3 style tags. Format this as a JSON object.
+        1. Identify the clothing item. Provide its name, category (Tops, Bottoms, Outer, Dresses), colorway, and 3 style tags. Format this as a JSON object.
         2. Generate a new version of this exact garment isolated on a pure white background. Remove all background elements, humans, and distractions. Only the clothing should remain.`
       };
 
@@ -81,7 +81,7 @@ const Scanner: React.FC = () => {
 
       let extractedJson = {
         name: 'New Drop',
-        category: 'T-Shirts',
+        category: 'Tops',
         colorway: 'Default',
         tags: ['Fresh']
       };

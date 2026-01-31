@@ -121,26 +121,29 @@ const OutfitBuilder: React.FC = () => {
     }
   };
 
-  const handleFinalSave = () => {
+  const handleFinalSave = async () => {
     setIsFinalizing(true);
 
-    const newOutfit: Outfit = {
-      id: `outfit-${Date.now()}`,
-      name: reviewName,
-      items: canvasItems,
-      tags: reviewTags,
-      season: 'Any',
-      year: new Date().getFullYear(),
-      isFavorite: false
-    };
+    try {
+      const newOutfit: Omit<Outfit, 'id'> = {
+        name: reviewName,
+        items: canvasItems,
+        tags: reviewTags,
+        season: 'Any',
+        year: new Date().getFullYear(),
+        isFavorite: false
+      };
 
-    const savedOutfitsRaw = localStorage.getItem('user_outfits');
-    const savedOutfits = savedOutfitsRaw ? JSON.parse(savedOutfitsRaw) : [];
-    localStorage.setItem('user_outfits', JSON.stringify([newOutfit, ...savedOutfits]));
+      await outfitsService.create(newOutfit);
 
-    setTimeout(() => {
-      navigate('/catalog');
-    }, 800);
+      setTimeout(() => {
+        navigate('/catalog');
+      }, 500);
+    } catch (error) {
+      console.error("Failed to save outfit", error);
+      alert("Failed to save outfit!");
+      setIsFinalizing(false);
+    }
   };
 
   const addToCanvas = (item: WardrobeItem) => {

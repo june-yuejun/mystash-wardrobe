@@ -125,10 +125,10 @@ const Home: React.FC = () => {
         <h2 className="font-pop text-xl text-klein-blue bg-white px-3 py-1 comic-border inline-block transform rotate-1 mb-6 uppercase italic">Categories</h2>
         <div className="grid grid-cols-2 gap-6 pb-20">
           {[
-            { label: 'TOPS', count: filteredItems.filter(i => i.category === 'T-Shirts').length, icon: 'checkroom', color: 'halftone-pink', route: 'T-Shirts' },
-            { label: 'BOTTOMS', count: filteredItems.filter(i => i.category === 'Jeans').length, icon: 'apparel', color: 'halftone-orange', route: 'Jeans' },
-            { label: 'DRESSES', count: filteredItems.filter(i => i.category === 'Dresses').length, icon: 'dry_cleaning', color: 'halftone-orange', route: 'Dresses' },
-            { label: 'OUTER', count: filteredItems.filter(i => i.category === 'Jackets').length, icon: 'severe_cold', color: 'halftone-pink', route: 'Jackets' },
+            { label: 'TOPS', count: filteredItems.filter(i => ['tops', 'top', 't-shirts', 't-shirt', 'shirts', 'shirt', 'blouse', 'sweater'].includes(i.category.toLowerCase())).length, icon: 'checkroom', color: 'halftone-pink', route: 'Tops' },
+            { label: 'BOTTOMS', count: filteredItems.filter(i => ['bottoms', 'bottom', 'jeans', 'pants', 'shorts', 'skirt', 'trousers'].includes(i.category.toLowerCase())).length, icon: 'apparel', color: 'halftone-orange', route: 'Bottoms' },
+            { label: 'DRESSES', count: filteredItems.filter(i => ['dresses', 'dress', 'gown'].includes(i.category.toLowerCase())).length, icon: 'dry_cleaning', color: 'halftone-orange', route: 'Dresses' },
+            { label: 'OUTER', count: filteredItems.filter(i => ['outer', 'jackets', 'jacket', 'coat', 'cardigan', 'blazer'].includes(i.category.toLowerCase())).length, icon: 'severe_cold', color: 'halftone-pink', route: 'Outer' },
           ].map((cat, i) => (
             <div
               key={i}

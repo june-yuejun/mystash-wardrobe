@@ -25,7 +25,7 @@ const ItemDetail: React.FC = () => {
         setItem({
           id: 'new',
           name: aiState.aiData.name || 'New Item',
-          category: aiState.aiData.category || 'T-Shirts',
+          category: aiState.aiData.category || 'Tops',
           colorway: aiState.aiData.colorway || 'Multi',
           season: ['Spring'],
           tags: aiState.aiData.style_tags || aiState.aiData.tags || ['Fresh'],
@@ -33,7 +33,7 @@ const ItemDetail: React.FC = () => {
           createdAt: 'Just now'
         });
         setName(aiState.aiData.name || 'New Item');
-        setCategory(aiState.aiData.category || 'T-Shirts');
+        setCategory(aiState.aiData.category || 'Tops');
         setTags(aiState.aiData.style_tags || aiState.aiData.tags || ['Fresh']);
       } else if (id && id !== 'new') {
         const found = await itemsService.getById(id);
@@ -41,7 +41,17 @@ const ItemDetail: React.FC = () => {
           setItem(found);
           setName(found.name);
           setTags(found.tags || []);
-          setCategory(found.category);
+
+          // Map legacy categories
+          const lowerCat = found.category.toLowerCase();
+          let mappedCategory = found.category;
+
+          if (['t-shirts', 't-shirt', 'shirt', 'blouse', 'sweater', 'top'].includes(lowerCat)) mappedCategory = 'Tops';
+          else if (['jeans', 'pants', 'shorts', 'skirt', 'trousers', 'bottomch'].includes(lowerCat)) mappedCategory = 'Bottoms';
+          else if (['jackets', 'jacket', 'coat', 'blazer', 'outer'].includes(lowerCat)) mappedCategory = 'Outer';
+          else if (['dresses', 'dress', 'gown'].includes(lowerCat)) mappedCategory = 'Dresses';
+
+          setCategory(mappedCategory);
         } else {
           // Handle 404
           navigate('/');
@@ -165,11 +175,10 @@ const ItemDetail: React.FC = () => {
                   onChange={(e) => setCategory(e.target.value)}
                   className="appearance-none flex w-full border-4 border-black bg-white h-14 px-4 text-xs font-extrabold focus:ring-0 uppercase italic"
                 >
-                  <option value="T-Shirts">T-SHIRTS</option>
-                  <option value="Jeans">JEANS</option>
-                  <option value="Jackets">JACKETS</option>
+                  <option value="Tops">TOPS</option>
+                  <option value="Bottoms">BOTTOMS</option>
+                  <option value="Outer">OUTER</option>
                   <option value="Dresses">DRESSES</option>
-                  <option value="Shoes">SHOES</option>
                 </select>
                 <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none font-black">expand_more</span>
               </div>
